@@ -20,7 +20,11 @@
 #include "config.h"
 
 #ifdef _WIN32
-#   include <Windows.h>
+#   include <winsock2.h>
+#   ifndef _WIN32_WINNT
+#      define _WIN32_WINNT 0x0501
+#   endif
+#   include <windows.h>
 #   include <direct.h>
 #   include <io.h>
 #   include <process.h>
@@ -60,7 +64,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#ifdef CCACHE_CL
+#ifdef _MSC_VER
 _CRTIMP extern char **environ;
 typedef int pid_t;
 typedef SSIZE_T ssize_t;
