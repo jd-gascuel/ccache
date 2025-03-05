@@ -18,7 +18,7 @@ jobs:
       fail-fast: true
       matrix:
         # See existing oe from: https://github.com/actions/runner-images
-        os: [ubuntu-20.04, ubuntu-latest, windows-2022]
+        os: [ubuntu-20.04, ubuntu-latest]
         experimental: [false]
         include:
         - os: windows-2022
@@ -28,8 +28,10 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v4
-    - name: configure
-      run: ./autogen.sh && ./configure $HOST
+    - name: autogen
+      run:  bash autogen.sh
+    - name: configure 
+      run:  bash configure $HOST
     - name: make
       run:  make
     - name: test
