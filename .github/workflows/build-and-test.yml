@@ -1,0 +1,28 @@
+#--------------------------------------------------------------
+# $Id$
+# History:
+# 2025-03-05 - Imported from Action template & old .travis.yml  file
+name: Build & test ccache
+
+#---- Trigers -------------------------------------------------
+on:
+  push:
+    #### branches: [ "windows" ]
+  pull_request:
+    #### branches: [ "windows" ]
+
+#---- What to do ? --------------------------------------------
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout CCache $default-branch
+      uses: actions/checkout@v4
+    - name: Autogen configure 
+      run: ./autogen.sh
+    - name: Configure
+      run: ./configure $HOST
+    - name: make
+      run:  make
+    - name: make test
+      run:  make ${TEST:-test}
