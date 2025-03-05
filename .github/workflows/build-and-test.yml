@@ -16,11 +16,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout & Configure
+    - name: checkout
       uses: actions/checkout
-      run: ./autogen.sh
-      run: ./configure $HOST
+    - name: configure
+      run: ./autogen.sh && ./configure $HOST
     - name: make
       run:  make
-    - name: make test
+    - name: test
       run:  make ${TEST:-test}
