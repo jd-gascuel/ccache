@@ -7,20 +7,18 @@ name: Build & test ccache
 #---- Trigers -------------------------------------------------
 on:
   push:
-    #### branches: [ "windows" ]
+    branches: [ "windows", "master" ]
   pull_request:
-    #### branches: [ "windows" ]
+    branches: [ "windows", "master" ]
 
 #---- What to do ? --------------------------------------------
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout CCache $default-branch
-      uses: actions/checkout@v4
-    - name: Autogen configure 
+    - name: Checkout & Configure
+      uses: actions/checkout
       run: ./autogen.sh
-    - name: Configure
       run: ./configure $HOST
     - name: make
       run:  make
