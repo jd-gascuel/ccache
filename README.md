@@ -2,6 +2,7 @@ ccache
 ======
 
 [![Build Status](https://travis-ci.org/ccache/ccache.svg?branch=master)](https://travis-ci.org/ccache/ccache)
+[![Action](https://github.com/jd-gascuel/ccache/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/jd-gascuel/ccache/actions?query=event%3Apush)
 
 About
 -----
