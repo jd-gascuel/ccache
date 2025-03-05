@@ -15,9 +15,16 @@ on:
 jobs:
   example_matrix:
     strategy:
+      fail-fast: true
       matrix:
-        os: [ubuntu-20.04, ubuntu-latest]
+        # See existing oe from: https://github.com/actions/runner-images
+        os: [ubuntu-20.04, ubuntu-latest, windows-2022]
+        experimental: [false]
+        include:
+        - os: windows-2022
+          experimental: true
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
     steps:
     - name: checkout
       uses: actions/checkout@v4
