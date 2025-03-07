@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------
-# $Id: build-and-test.yml,v 8e694d505bf4 2025/03/07 09:06:34 jdg $
+# $Id: build-and-test.yml,v f683336162c6 2025/03/07 11:21:54 jdg $
 # History:
 # 2025-03-05 - Imported from Action template & old .travis.yml  file
 name: Build & test ccache
@@ -43,10 +43,10 @@ jobs:
       if:   ${{ matrix.onWindows }}
       shell: cmd
       run:  |
-        set
-        dir %CONDA%
-        dir %VCPKG_INSTALLATION_ROOT%
         echo nmake > make.bat
+        vcpkg configure install
+        vcpkg gtest install
+        vcpkg owns manual-link
 
     - name: make
       run:  make 
