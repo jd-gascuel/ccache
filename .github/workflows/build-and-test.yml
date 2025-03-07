@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------
-# $Id: build-and-test.yml,v 6b7d77092f00 2025/03/07 09:02:45 jdg $
+# $Id: build-and-test.yml,v 8e694d505bf4 2025/03/07 09:06:34 jdg $
 # History:
 # 2025-03-05 - Imported from Action template & old .travis.yml  file
 name: Build & test ccache
@@ -41,6 +41,7 @@ jobs:
 
     - name: Windows configure ... not yet there !
       if:   ${{ matrix.onWindows }}
+      shell: cmd
       run:  |
         set
         dir %CONDA%
