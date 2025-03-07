@@ -1,19 +1,20 @@
-#--------------------------------------------------------------
-# $Id$
+#-----------------------------------------------------------------------------
+# $Id: build-and-test.yml,v 0e8879bfa629 2025/03/07 08:26:43 jdg $
 # History:
 # 2025-03-05 - Imported from Action template & old .travis.yml  file
 name: Build & test ccache
 
-#---- Trigers -------------------------------------------------
+#---- Trigers ----------------------------------------------------------------
 on:
   push:
     branches: [ "windows", "master" ]
   pull_request:
     branches: [ "windows", "master" ]
 
-#---- What to do ? --------------------------------------------
+#---- What to do ? -----------------------------------------------------------
 jobs:
   example_matrix:
+    #---- Defines variants of the compilation environments -------------------
     strategy:
       fail-fast: true
       matrix:
@@ -23,16 +24,29 @@ jobs:
         include:
         - os: windows-2022
           experimental: true
+          onWindows: true
+          make: nmake
+
+    #---- Run on the variants ------------------------------------------------
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.experimental }}
     steps:
-    - name: checkout
-      uses: actions/checkout@v4
-    - name: autogen
+    - uses: actions/checkout@v4
+
+    - name: Linux autogen and configure
+      if ${{ ! matrix.onWindows }}
       run:  bash autogen.sh
-    - name: configure 
       run:  bash configure $HOST
+
+    - name: Windows configure ... not yet there !
+      if ${{ matrix.onWindows }}
+      run:  set
+      run:  dir %CONDA%
+      run:  dir %VCPKG_INSTALLATION_ROOT%
+      run:  echo nmake > make.bat
+
     - name: make
-      run:  make
+      run:  make 
+
     - name: test
       run:  make ${TEST:-test}
