@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------
-# $Id: build-and-test.yml,v f9e6ba10d6da 2025/03/07 08:46:54 jdg $
+# $Id: build-and-test.yml,v 6b7d77092f00 2025/03/07 09:02:45 jdg $
 # History:
 # 2025-03-05 - Imported from Action template & old .travis.yml  file
 name: Build & test ccache
@@ -35,15 +35,17 @@ jobs:
 
     - name: Linux autogen and configure
       if:   ${{ ! matrix.onWindows }}
-      run:  bash autogen.sh
-      run:  bash configure $HOST
+      run:  |
+        bash autogen.sh
+        bash configure $HOST
 
     - name: Windows configure ... not yet there !
       if:   ${{ matrix.onWindows }}
-      run:  set
-      run:  dir %CONDA%
-      run:  dir %VCPKG_INSTALLATION_ROOT%
-      run:  echo nmake > make.bat
+      run:  |
+        set
+        dir %CONDA%
+        dir %VCPKG_INSTALLATION_ROOT%
+        echo nmake > make.bat
 
     - name: make
       run:  make 
