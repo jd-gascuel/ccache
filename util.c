@@ -31,7 +31,6 @@
 #   include <sys/utime.h>
 #   include <Psapi.h>
 #   include <tchar.h>
-#   include <Winsock.h>
 #endif
 
 static FILE *logfile;

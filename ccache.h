@@ -288,10 +288,6 @@ char *win32getshell(char *path);
 char* win32getexecutable(char *path);
 int win32execute(char *path, char **argv, int doreturn,
 								 int fd_stdout, int fd_stderr);
-#    ifndef _WIN32_WINNT
-#    define _WIN32_WINNT 0x0501
-#    endif
-#    include <windows.h>
 #    define strcasecmp   _stricmp
 #    define mkdir(a,b) mkdir(a)
 #    define link(src,dst) (CreateHardLink(dst,src,NULL) ? 0 : -1)
@@ -302,7 +298,7 @@ int win32execute(char *path, char **argv, int doreturn,
 #    define PATH_DELIM ";"
 #    define F_RDLCK 0
 #    define F_WRLCK 0
-#    ifdef CCACHE_CL
+#    ifdef _MSC_VER
 #       define S_ISDIR(x) (((x) & _S_IFMT) == _S_IFDIR)
 #       define S_ISREG(x) (((x) & _S_IFMT) == _S_IFREG)
 #    endif
